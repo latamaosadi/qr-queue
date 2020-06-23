@@ -23,6 +23,7 @@
         "vue-template-compiler": "^2.6.11"
     },
     "dependencies": {
-        "instascan": "^1.0.0"
+        "instascan": "^1.0.0",
+        "moment": "^2.27.0"
     }
 }

@@ -3,7 +3,6 @@
 namespace App\Observers;
 
 use App\Customer;
-use Carbon\Carbon;
 
 class CustomerObserver
 {
@@ -64,7 +63,7 @@ class CustomerObserver
 
     public function saving(Customer $customer)
     {
-        $lastCustomer = Customer::whereDate('created_at', Carbon::today())->orderBy('created_at', 'desc')->first();
+        $lastCustomer = Customer::lastQueue()->first();
         $customer->queue = $lastCustomer ? $lastCustomer->queue + 1 : 1;
     }
 }
