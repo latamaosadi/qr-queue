@@ -32,6 +32,7 @@ scanner.addListener("scan", function(content) {
   scanner.stop();
   loading = true;
   loadingSound.play();
+  document.getElementById("loading-scanner").classList.remove("hidden");
   window.axios
     .post("/api/scan", {
       url: content
@@ -47,6 +48,7 @@ scanner.addListener("scan", function(content) {
     })
     .then(() => {
       loading = false;
+      document.getElementById("loading-scanner").classList.add("hidden");
       scanner.start(defaultCamera);
     });
 });

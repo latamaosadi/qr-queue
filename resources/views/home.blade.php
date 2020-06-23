@@ -18,12 +18,20 @@
                     <h2 class="text-4xl font-bold" id="queue-container">{{ $queue }}</h2>
                 </div>
             </div>
-            <div class="w-1/3">
-                <video
-                    id="preview"
-                    class="h-full w-full"
-                >
-                </video>
+            <div class="h-full w-1/3 flex">
+                <div class="pb-full m-auto border-4 border-green-500 relative w-full">
+                    <video
+                        id="preview"
+                        class="object-cover absolute h-full w-full"
+                    >
+                    </video>
+                    <div
+                        id="loading-scanner"
+                        class="absolute inset-0 bg-gray-700 opacity-75 flex hidden"
+                    >
+                        <span class="spinner m-auto"></span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
