@@ -15,11 +15,12 @@ require("laravel-mix-purgecss");
  */
 
 mix.js("resources/js/app.js", "public/js");
+mix.js("resources/js/scanner.js", "public/js");
 
-mix.sass("resources/sass/app.scss", "public/css").tailwind(
-    "./tailwind.config.js"
-);
+mix
+  .sass("resources/sass/app.scss", "public/css")
+  .tailwind("./tailwind.config.js");
 
 if (mix.inProduction()) {
-    mix.version().purgeCss();
+  mix.version().purgeCss();
 }
