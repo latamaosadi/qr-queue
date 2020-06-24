@@ -26,14 +26,17 @@ export default {
     },
     absentQueue() {
       this.stats.absent++;
+      this.customer = null;
     },
     completeQueue() {
       this.stats.done++;
+      this.customer = null;
     },
     formatNIK(nik) {
       return nik.toString().replace(/\B(?=(\d{4})+(?!\d))/g, " ");
     },
     loadData() {
+      this.loading = true;
       axios.get("/api/queue/stats").then(response => {
         this.stats = response.data;
         this.loading = false;
@@ -44,9 +47,9 @@ export default {
         if (!response.data) {
           return;
         }
+        this.customer = response.data;
         this.step =
           this.customer.queue_status === "handled" ? "handling" : "calling";
-        this.customer = response.data;
       });
     },
     processQueue() {
@@ -54,7 +57,7 @@ export default {
       axios
         .post("/api/queue/process")
         .then(response => {
-          this.customer = response.data.customer;
+          this.customer = response.data;
           this.callQueue();
         })
         .then(() => {
@@ -74,14 +77,17 @@ export default {
     },
     skipQueue(processNew) {
       this.loading = true;
+      const data = {};
+      if (processNew) data.process_new = true;
       axios
-        .post(`/api/queue/skip/${this.customer.id}`)
+        .post(`/api/queue/skip/${this.customer.id}`, data)
         .then(response => {
           this.absentQueue();
           if (!processNew) {
             this.step = "idle";
             return;
           }
+          this.customer = response.data;
           this.callQueue();
         })
         .then(() => {
@@ -90,19 +96,25 @@ export default {
     },
     finishQueue(processNew) {
       this.loading = true;
+      const data = {};
+      if (processNew) data.process_new = true;
       axios
-        .post(`/api/queue/finish/${this.customer.id}`)
+        .post(`/api/queue/finish/${this.customer.id}`, data)
         .then(response => {
           this.completeQueue();
           if (!processNew) {
             this.step = "idle";
             return;
           }
+          this.customer = response.data;
           this.callQueue();
         })
         .then(() => {
           this.loading = false;
         });
+    },
+    refreshQueue() {
+      this.loadData();
     }
   }
 };

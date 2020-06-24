@@ -1,5 +1,11 @@
 <template>
     <div>
+        <div class="text-center mb-2">
+            <button
+                @click="refreshQueue()"
+                class="text-blue-500"
+            >Refresh Antrian</button>
+        </div>
         <div class="flex -m-2 mx-auto">
             <div class="p-2 flex-1">
                 <div class="rounded-lg bg-gray-100 border-2 border-gray-800 shadow-lg text-center p-6">
@@ -29,7 +35,7 @@
             >Proses Antrian</button>
         </div>
         <div
-            v-else-if="customer !== null"
+            v-else-if="customer"
             class="mt-6"
         >
             <h1 class="text-center text-2xl">Antrian <span class="font-bold">#{{ customer.queue }}</span></h1>
@@ -80,6 +86,7 @@
                 class="bg-red-500 py-4 px-6 text-white rounded font-bold hover:bg-red-700 hover:shadow-xl transition duration-300 ml-6"
             >Lewati Antrian</button>
             <button
+                v-if="stats.inline > 0"
                 @click="skipQueue(true)"
                 :disabled="loading"
                 :class="{'spinner spinner-sm': loading}"
@@ -94,6 +101,7 @@
                 class="bg-blue-500 py-4 px-6 text-white rounded font-bold hover:bg-blue-700 hover:shadow-xl transition duration-300"
             >Selesai</button>
             <button
+                v-if="stats.inline > 0"
                 @click="finishQueue(true)"
                 :disabled="loading"
                 :class="{'spinner spinner-sm': loading}"

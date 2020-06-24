@@ -6,6 +6,7 @@ use App\Customer;
 use App\Http\Controllers\Controller;
 use App\Mail\QueueNoticeMail;
 use App\Profile;
+use Carbon\Carbon;
 use Goutte\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -23,7 +24,7 @@ class ScannerController extends Controller
         $nodeValues = $crawler->filter('h4')->each(function ($node) {
             return $node->text();
         });
-        $tanggalLahir = $nodeValues[1];
+        $tanggalLahir = Carbon::createFromFormat('d/m/Y', $nodeValues[1]);
         $nik = str_replace(" ", "", $nodeValues[2]);
         $program = $nodeValues[3];
         $no_hp = $nodeValues[4];
@@ -32,8 +33,13 @@ class ScannerController extends Controller
 
         $profile = Profile::firstOrNew(
             ['nik' => $nik],
-            ['nama' => $nama, 'no_hp' => $no_hp, 'email' => $email, 'alamat' => $alamat]
         );
+        $profile->nama = $nama;
+        $profile->no_hp = $no_hp;
+        $profile->email = $email;
+        $profile->alamat = $alamat;
+        $profile->program = $program;
+        $profile->tanggal_lahir = $tanggalLahir;
         $profile->save();
 
         $customer = new Customer();
