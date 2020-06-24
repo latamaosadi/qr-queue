@@ -9,6 +9,11 @@ module.exports = {
         color: theme("colors.gray.100"),
         size: "4em",
         border: "3px"
+      },
+      sm: {
+        color: theme("colors.gray.100"),
+        size: "1em",
+        border: "2px"
       }
     })
   },

@@ -63,6 +63,11 @@ class CustomerObserver
 
     public function saving(Customer $customer)
     {
+        //
+    }
+
+    public function creating(Customer $customer)
+    {
         $lastCustomer = Customer::lastQueue()->first();
         $customer->queue = $lastCustomer ? $lastCustomer->queue + 1 : 1;
     }

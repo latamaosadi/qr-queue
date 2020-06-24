@@ -18,6 +18,32 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::group(['prefix' => 'queue'], function () {
+    Route::get('stats', [
+        'uses' => 'API\QueueController@stats',
+    ]);
+
+    Route::get('current', [
+        'uses' => 'API\QueueController@current',
+    ]);
+
+    Route::post('process', [
+        'uses' => 'API\QueueController@process',
+    ]);
+
+    Route::post('confirm/{customer}', [
+        'uses' => 'API\QueueController@confirm',
+    ]);
+
+    Route::post('skip/{customer}', [
+        'uses' => 'API\QueueController@skipQueue',
+    ]);
+
+    Route::post('finish/{customer}', [
+        'uses' => 'API\QueueController@finish',
+    ]);
+});
+
 Route::post('scan', [
     'uses' => 'API\ScannerController@scan',
 ]);

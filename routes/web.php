@@ -18,6 +18,10 @@ Route::get('/', [
     'uses' => 'HomeController@index',
 ]);
 
+Route::get('/cs/{any?}', function () {
+    return view('cs');
+})->where('any', '.*');
+
 Route::get('dummy-profile', function () {
     return view('dummy-profile');
 });
