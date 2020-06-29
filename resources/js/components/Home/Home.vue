@@ -40,36 +40,44 @@
         >
             <h1 class="text-center text-2xl">Antrian <span class="font-bold">#{{ customer.queue }}</span></h1>
             <div class="max-w-lg mx-auto mt-4 text-xl bg-gray-200 p-4 rounded-md">
-                <div class="-m-1">
-                    <div class="p-1 flex">
-                        <div class="w-1/3 text-right pr-4 font-bold">Nama:</div>
-                        <div class="w-2/3">{{ customer.profile.nama }}</div>
-                    </div>
-                    <div class="p-1 flex">
-                        <div class="w-1/3 text-right pr-4 font-bold">Tanggal Lahir:</div>
-                        <div class="w-2/3">{{ customer.profile.tanggal_lahir }}</div>
-                    </div>
-                    <div class="p-1 flex">
-                        <div class="w-1/3 text-right pr-4 font-bold">NIK:</div>
-                        <div class="w-2/3">{{ formatNIK(customer.profile.nik) }}</div>
-                    </div>
-                    <div class="p-1 flex">
-                        <div class="w-1/3 text-right pr-4 font-bold">Program:</div>
-                        <div class="w-2/3">{{ customer.profile.program }}</div>
-                    </div>
-                    <div class="p-1 flex">
-                        <div class="w-1/3 text-right pr-4 font-bold">No HP:</div>
-                        <div class="w-2/3">{{ customer.profile.no_hp }}</div>
-                    </div>
-                    <div class="p-1 flex">
-                        <div class="w-1/3 text-right pr-4 font-bold">Email:</div>
-                        <div class="w-2/3">{{ customer.profile.email }}</div>
-                    </div>
-                    <div class="p-1 flex">
-                        <div class="w-1/3 text-right pr-4 font-bold">Alamat:</div>
-                        <div class="w-2/3">{{ customer.profile.alamat }}</div>
+                <div class="w-64 mx-auto">
+                    <div class="pb-full overflow-hidden rounded-full bg-gray-300 relative">
+                        <img :src="customer.profile.avatar" alt="" class="absolute inset-0 h-full w-full object-cover">
                     </div>
                 </div>
+                <div class="mt-6">
+                    <div class="-m-1">
+                        <div class="p-1 flex">
+                            <div class="w-1/3 text-right pr-4 font-bold">Nama:</div>
+                            <div class="w-2/3">{{ customer.profile.nama }}</div>
+                        </div>
+                        <div class="p-1 flex">
+                            <div class="w-1/3 text-right pr-4 font-bold">Tanggal Lahir:</div>
+                            <div class="w-2/3">{{ customer.profile.tanggal_lahir }}</div>
+                        </div>
+                        <div class="p-1 flex">
+                            <div class="w-1/3 text-right pr-4 font-bold">NIK:</div>
+                            <div class="w-2/3">{{ formatNIK(customer.profile.nik) }}</div>
+                        </div>
+                        <div class="p-1 flex">
+                            <div class="w-1/3 text-right pr-4 font-bold">Program:</div>
+                            <div class="w-2/3">{{ customer.profile.program }}</div>
+                        </div>
+                        <div class="p-1 flex">
+                            <div class="w-1/3 text-right pr-4 font-bold">No HP:</div>
+                            <div class="w-2/3">{{ customer.profile.no_hp }}</div>
+                        </div>
+                        <div class="p-1 flex">
+                            <div class="w-1/3 text-right pr-4 font-bold">Email:</div>
+                            <div class="w-2/3">{{ customer.profile.email }}</div>
+                        </div>
+                        <div class="p-1 flex">
+                            <div class="w-1/3 text-right pr-4 font-bold">Alamat:</div>
+                            <div class="w-2/3">{{ customer.profile.alamat }}</div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
         <div class="flex justify-center mt-6" v-if="step === 'calling'">
