@@ -26,7 +26,7 @@ class ScannerController extends Controller
         $avatarElement = $crawler->filter('div.img')->first();
         $matchedAttr = null;
         preg_match("/'([^']+)'/", $avatarElement->attr('style'), $matchedAttr);
-        $avatar = file_get_contents("https://bpjstk.id{$matchedAttr[1]}");
+        $avatar = file_get_contents("http://bpjstk.id{$matchedAttr[1]}");
 
         // ambil nama
         $nameElement = $crawler->filter('h2.name')->first();
