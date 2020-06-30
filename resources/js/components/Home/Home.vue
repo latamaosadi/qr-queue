@@ -15,13 +15,13 @@
             </div>
             <div class="p-2 flex-1">
                 <div class="rounded-lg bg-gray-100 border-2 border-green-500 text-green-500 shadow-lg text-center p-6">
-                    <h1 class="text-2xl">Nasabah Terlayani</h1>
+                    <h1 class="text-2xl">Peserta Dilayani</h1>
                     <h4 class="text-4xl font-bold">{{ stats.done }}</h4>
                 </div>
             </div>
             <div class="p-2 flex-1">
                 <div class="rounded-lg bg-gray-100 border-2 border-red-500 text-red-500 shadow-lg text-center p-6">
-                    <h1 class="text-2xl">Nasabah Tidak Terproses</h1>
+                    <h1 class="text-2xl">Peserta Belum Terproses</h1>
                     <h4 class="text-4xl font-bold">{{ stats.absent }}</h4>
                 </div>
             </div>
