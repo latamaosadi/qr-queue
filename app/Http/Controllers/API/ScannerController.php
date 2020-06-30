@@ -44,8 +44,10 @@ class ScannerController extends Controller
         if (!Config::get('app', 'on_external_netwok')) {
             $matchedAttr = null;
             preg_match("/'([^']+)'/", $avatarElement->attr('style'), $matchedAttr);
-            $avatar = file_get_contents("http://bpjstk.id{$matchedAttr[1]}");
-            $storage->put("avatar/{$nik}.jpg", $avatar);
+            $avatar = @file_get_contents("http://bpjstk.id{$matchedAttr[1]}");
+            if ($avatar !== false) {
+                $storage->put("avatar/{$nik}.jpg", $avatar);
+            }
         }
 
         $profile = Profile::firstOrNew(
