@@ -39,6 +39,12 @@
             class="mt-6"
         >
             <h1 class="text-center text-2xl">Antrian <span class="font-bold">#{{ customer.queue }}</span></h1>
+            <div
+                v-if="step === 'handling'"
+                class="text-4xl text-center text-green-500 font-bold font-mono"
+            >
+                {{ formatedInterviewDuration }}
+            </div>
             <div class="max-w-lg mx-auto mt-4 text-xl bg-gray-200 p-4 rounded-md">
                 <div class="w-32 mx-auto">
                     <div class="pb-full overflow-hidden rounded-full bg-gray-300 relative">

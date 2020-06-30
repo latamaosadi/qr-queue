@@ -1,4 +1,5 @@
 import axios from "axios";
+import moment from "moment";
 
 export default {
   data() {
@@ -10,14 +11,50 @@ export default {
       },
       step: "idle", // idle, calling, handling
       customer: null,
-      loading: true
+      loading: true,
+      interviewStartAt: null,
+      interviewInterval: null,
+      interviewDuration: null
     };
   },
   created() {
     this.loadData();
     this.loadCurrentQueue();
   },
+  computed: {
+    formatedInterviewDuration() {
+      if (!this.interviewDuration) {
+        return "00:00:00";
+      }
+      return `${this.interviewDuration
+        .get("hours")
+        .toString()
+        .padStart(2, "0")}:${this.interviewDuration
+        .get("minutes")
+        .toString()
+        .padStart(2, "0")}:${this.interviewDuration
+        .get("seconds")
+        .toString()
+        .padStart(2, "0")}`;
+    }
+  },
   methods: {
+    startTimer() {
+      if (!this.interviewStartAt) {
+        return;
+      }
+      this.interviewInterval = setInterval(() => {
+        this.interviewDuration = moment.duration(
+          moment().diff(this.interviewStartAt)
+        );
+      }, 1000);
+    },
+    clearTimer() {
+      if (this.interviewInterval) {
+        clearInterval(this.interviewInterval);
+      }
+      this.interviewDuration = null;
+    },
     callQueue() {
       this.step = "calling";
       if (this.stats.inline > 0) {
@@ -48,6 +85,10 @@ export default {
           return;
         }
         this.customer = response.data;
+        if (this.customer.interview_start_at) {
+          this.interviewStartAt = moment(this.customer.interview_start_at);
+          this.startTimer();
+        }
         this.step =
           this.customer.queue_status === "handled" ? "handling" : "calling";
       });
@@ -70,6 +111,8 @@ export default {
         .post(`/api/queue/confirm/${this.customer.id}`)
         .then(response => {
           this.step = "handling";
+          this.interviewStartAt = moment(response.data.interview_start_at);
+          this.startTimer();
         })
         .then(() => {
           this.loading = false;
@@ -98,6 +141,7 @@ export default {
       this.loading = true;
       const data = {};
       if (processNew) data.process_new = true;
+      this.clearTimer();
       axios
         .post(`/api/queue/finish/${this.customer.id}`, data)
         .then(response => {

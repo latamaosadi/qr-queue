@@ -229,4 +229,6 @@ return [
 
     ],
 
+    'on_external_network' => env('EXTERNAL_NETWORK', false),
+
 ];

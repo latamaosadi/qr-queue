@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Customer;
 use App\Http\Controllers\Controller;
 use App\QueueStatus;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class QueueController extends Controller
@@ -40,6 +41,7 @@ class QueueController extends Controller
     public function confirm(Customer $customer)
     {
         $customer->queue_status = QueueStatus::HANDLED;
+        $customer->interview_start_at = Carbon::now();
         $customer->save();
 
         return $customer;
@@ -64,6 +66,7 @@ class QueueController extends Controller
     public function finish(Customer $customer, Request $request)
     {
         $customer->queue_status = QueueStatus::DONE;
+        $customer->interview_finished_at = Carbon::now();
         $customer->save();
 
         if ($request->input('process_new', false)) {

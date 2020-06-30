@@ -9,6 +9,7 @@ use App\Profile;
 use Carbon\Carbon;
 use Goutte\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpClient\HttpClient;
@@ -24,9 +25,6 @@ class ScannerController extends Controller
 
         // ambil gambar
         $avatarElement = $crawler->filter('div.img')->first();
-        $matchedAttr = null;
-        preg_match("/'([^']+)'/", $avatarElement->attr('style'), $matchedAttr);
-        $avatar = file_get_contents("http://bpjstk.id{$matchedAttr[1]}");
 
         // ambil nama
         $nameElement = $crawler->filter('h2.name')->first();
@@ -43,7 +41,12 @@ class ScannerController extends Controller
         $email = $nodeValues[5];
         $alamat = $nodeValues[6];
 
-        $storage->put("avatar/{$nik}.jpg", $avatar);
+        if (!Config::get('app', 'on_external_netwok')) {
+            $matchedAttr = null;
+            preg_match("/'([^']+)'/", $avatarElement->attr('style'), $matchedAttr);
+            $avatar = file_get_contents("http://bpjstk.id{$matchedAttr[1]}");
+            $storage->put("avatar/{$nik}.jpg", $avatar);
+        }
 
         $profile = Profile::firstOrNew(
             ['nik' => $nik],
