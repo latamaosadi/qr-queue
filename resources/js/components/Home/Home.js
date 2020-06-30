@@ -54,6 +54,7 @@ export default {
         clearInterval(this.interviewInterval);
       }
       this.interviewDuration = null;
+      this.interviewStartAt = null;
     },
     callQueue() {
       this.step = "calling";
