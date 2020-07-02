@@ -41,7 +41,7 @@ class ScannerController extends Controller
         $email = $nodeValues[5];
         $alamat = $nodeValues[6];
 
-        if (!Config::get('app', 'on_external_netwok')) {
+        if (!Config::get('app.on_external_network')) {
             $matchedAttr = null;
             preg_match("/'([^']+)'/", $avatarElement->attr('style'), $matchedAttr);
             $avatar = @file_get_contents("http://bpjstk.id{$matchedAttr[1]}");
