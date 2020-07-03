@@ -21,7 +21,7 @@
 
             <div class="w-1/2 pl-2 md:pl-0">
                 <h4 class="text-gray-900 text-base xl:text-xl no-underline hover:no-underline font-bold">
-                    <i class="fas fa-qrcode text-orange-600 pr-3"></i> Customer Service QR Queue <span class="bg-blue-500 text-white rounded px-3 py-1 inline-block text-xs">{{ Auth::user()->name }}</span>
+                    <i class="fas fa-qrcode text-orange-600 pr-3"></i> Customer Service QR Queue <span class="bg-black text-white rounded px-3 py-1 inline-block text-xs">{{ Auth::user()->name }}</span>
                 </h4>
             </div>
             <div class="w-1/2 pr-0">
