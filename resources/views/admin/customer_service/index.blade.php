@@ -18,7 +18,7 @@
             <tbody>
                 @foreach ($customerServices as $cs)
                     <tr>
-                        <td class="border px-4 py-2">{{ $loop->index }}</td>
+                        <td class="border px-4 py-2">{{ $loop->index + 1 }}</td>
                         <td class="border px-4 py-2">{{ $cs->name }}</td>
                         <td class="border px-4 py-2">{{ $cs->nip }}</td>
                         <td class="border px-4 py-2">{{ $cs->username }}</td>

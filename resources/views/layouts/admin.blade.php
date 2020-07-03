@@ -65,17 +65,26 @@
             <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block mt-2 lg:mt-0 bg-white z-20" id="nav-content">
                 <ul class="list-reset lg:flex flex-1 items-center px-4 md:px-0">
                     <li class="mr-6 my-2 md:my-0">
-                        <a href="{{ route('admin.index') }}" class="block py-1 md:py-3 pl-1 align-middle text-orange-600 no-underline hover:text-gray-900 border-b-2 border-orange-600 hover:border-orange-600">
-                            <i class="fas fa-home fa-fw mr-3 text-orange-600"></i><span class="pb-1 md:pb-0 text-sm">Dashboard</span>
+                        <a
+                            href="{{ route('admin.index') }}"
+                            class="block py-1 md:py-3 pl-1 align-middle no-underline hover:text-gray-900 border-b-2 {{ request()->is('admin') ? 'border-orange-600 text-orange-600' : 'border-white text-gray-500' }} hover:border-orange-600"
+                        >
+                            <i class="fas fa-home fa-fw mr-3"></i><span class="pb-1 md:pb-0 text-sm">Dashboard</span>
                         </a>
                     </li>
                     <li class="mr-6 my-2 md:my-0">
-                        <a href="{{ route('admin.counters.index') }}" class="block py-1 md:py-3 pl-1 align-middle text-gray-500 no-underline hover:text-gray-900 border-b-2 border-white hover:border-pink-500">
+                        <a
+                            href="{{ route('admin.counter.index') }}"
+                            class="block py-1 md:py-3 pl-1 align-middle no-underline hover:text-gray-900 border-b-2 {{ request()->is('admin/counters*') ? 'border-pink-600 text-pink-600' : 'border-white text-gray-500' }} hover:border-pink-600"
+                        >
                             <i class="fas fa-box fa-fw mr-3"></i><span class="pb-1 md:pb-0 text-sm">Counter</span>
                         </a>
                     </li>
                     <li class="mr-6 my-2 md:my-0">
-                        <a href="{{ route('admin.cs.index') }}" class="block py-1 md:py-3 pl-1 align-middle text-gray-500 no-underline hover:text-gray-900 border-b-2 border-white hover:border-green-500">
+                        <a
+                            href="{{ route('admin.cs.index') }}"
+                            class="block py-1 md:py-3 pl-1 align-middle no-underline hover:text-gray-900 border-b-2 {{ request()->is('admin/customer-services*') ? 'border-green-600 text-green-600' : 'border-white text-gray-500' }} hover:border-green-600"
+                        >
                             <i class="fas fa-users fa-fw mr-3"></i><span class="pb-1 md:pb-0 text-sm">Customer Service</span>
                         </a>
                     </li>

@@ -39,7 +39,7 @@ Route::group([
             Route::delete('/{customerService}/delete', 'CustomerServiceController@destroy');
         });
 
-        Route::group(['prefix' => 'counter', 'as' => 'counters.'], function () {
+        Route::group(['prefix' => 'counters', 'as' => 'counter.'], function () {
             Route::get('/', 'CounterController@index')->name('index');
             Route::get('/create', 'CounterController@create')->name('create');
             Route::post('/create', 'CounterController@store');
