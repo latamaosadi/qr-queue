@@ -18,7 +18,8 @@ module.exports = {
     })
   },
   variants: {
-    spinner: ["responsive"]
+    spinner: ["responsive"],
+    backgroundColor: ["responsive", "hover", "focus", "active"]
   },
   plugins: [
     require("tailwindcss-spinner")() // no options to configure

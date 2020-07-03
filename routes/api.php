@@ -23,11 +23,11 @@ Route::group(['prefix' => 'queue'], function () {
         'uses' => 'API\QueueController@stats',
     ]);
 
-    Route::get('current', [
+    Route::get('current/{counter}', [
         'uses' => 'API\QueueController@current',
     ]);
 
-    Route::post('process', [
+    Route::post('process/{counter}', [
         'uses' => 'API\QueueController@process',
     ]);
 

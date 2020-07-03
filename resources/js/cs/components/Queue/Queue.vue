@@ -3,8 +3,8 @@
         <div class="text-center mb-2">
             <button
                 @click="refreshQueue()"
-                class="text-blue-500"
-            >Refresh Antrian</button>
+                class="bg-blue-500 text-white px-4 py-2 text-sm rounded hover:shadow-lg focus:shadow-outline active:bg-blue-700 transitions duration-300"
+            ><i class="fas fa-sync mr-2"></i>Refresh Antrian</button>
         </div>
         <div class="flex -m-2 mx-auto">
             <div class="p-2 flex-1">
@@ -126,4 +126,4 @@
 </template>
 
 <!-- script js -->
-<script src="./Home.js"></script>
+<script src="./Queue.js"></script>

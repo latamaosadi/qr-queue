@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Counter;
 use App\Customer;
 use App\Http\Controllers\Controller;
 use App\QueueStatus;
@@ -23,16 +24,19 @@ class QueueController extends Controller
         ];
     }
 
-    public function current()
+    public function current(Counter $counter)
     {
-        $customer = Customer::processing()->orderBy('created_at', 'asc')->first();
+        $customer = Customer::where('counter_id', $counter->id)->processing()->orderBy('created_at', 'asc')->first();
         return $customer;
     }
 
-    public function process(Request $request)
+    public function process(Counter $counter, Request $request)
     {
         $nextCustomer = Customer::inline()->orderBy('queue', 'asc')->first();
+
         $nextCustomer->queue_status = QueueStatus::CALLED;
+        $nextCustomer->counter_id = $counter->id;
+        $nextCustomer->customer_service_id = $counter->customerService->id;
         $nextCustomer->save();
 
         return $nextCustomer;
