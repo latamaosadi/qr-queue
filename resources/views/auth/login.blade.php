@@ -52,20 +52,6 @@
                 </p>
             @endif
         </div>
-        <div class="mb-6">
-            <label class="md:w-2/3 block text-gray-500 font-bold">
-                <input
-                    id="remember"
-                    type="checkbox"
-                    name="remember"
-                    {{ old('remember') ? 'checked' : '' }}
-                    class="mr-2 leading-tight"
-                >
-                <span class="text-sm">
-                    Ingat Saya
-                </span>
-            </label>
-        </div>
         <div class="flex items-center justify-between">
             <button
                 type="submit"

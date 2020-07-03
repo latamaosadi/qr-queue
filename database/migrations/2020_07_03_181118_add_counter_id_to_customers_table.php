@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddCustomerServiceIdToCountersTable extends Migration
+class AddCounterIdToCustomersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddCustomerServiceIdToCountersTable extends Migration
      */
     public function up()
     {
-        Schema::table('counters', function (Blueprint $table) {
-            $table->bigInteger('customer_service_id')->nullable();
+        Schema::table('customers', function (Blueprint $table) {
+            $table->bigInteger('counter_id')->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ class AddCustomerServiceIdToCountersTable extends Migration
      */
     public function down()
     {
-        Schema::table('counters', function (Blueprint $table) {
-            $table->dropColumn('customer_service_id');
+        Schema::table('customers', function (Blueprint $table) {
+            $table->dropColumn('counter_id');
         });
     }
 }

@@ -58,7 +58,7 @@ class LoginController extends Controller
     {
         $this->validator($request);
 
-        if (Auth::guard('cs')->attempt($request->only('username', 'password'), $request->filled('remember'))) {
+        if (Auth::guard('cs')->attempt($request->only('username', 'password'), true)) {
             $counter = Counter::where('ip', $request->ip())->first();
             $counter->customer_service_id = Auth::guard('cs')->user()->id;
             $counter->save();
@@ -73,6 +73,11 @@ class LoginController extends Controller
 
     public function logout()
     {
+        if ($counter = Counter::where('customer_service_id', Auth::guard('cs')->user()->id)->first()) {
+            $counter->customer_service_id = null;
+            $counter->save();
+        }
+
         Auth::guard('cs')->logout();
         return redirect()
             ->route('cs.login')

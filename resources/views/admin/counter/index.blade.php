@@ -10,6 +10,7 @@
                     <th class="border px-4 py-2">No.</th>
                     <th class="border px-4 py-2">Nama</th>
                     <th class="border px-4 py-2">Alamat IP</th>
+                    <th class="border px-4 py-2">CS Aktif</th>
                     <th class="border px-4 py-2">Status</th>
                     <th class="border px-4 py-2">Action</th>
                 </tr>
@@ -20,6 +21,7 @@
                         <td class="border px-4 py-2">{{ $loop->index + 1 }}</td>
                         <td class="border px-4 py-2">{{ $counter->name }}</td>
                         <td class="border px-4 py-2">{{ $counter->ip }}</td>
+                        <td class="border px-4 py-2">{{ $counter->customerService->name ?? 'Kosong' }}</td>
                         <td class="border px-4 py-2">{{ $counter->status }}</td>
                         <td class="border px-4 py-2">
                             <a

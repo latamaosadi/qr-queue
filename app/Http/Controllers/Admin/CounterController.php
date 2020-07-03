@@ -27,22 +27,22 @@ class CounterController extends Controller
         return redirect()->route('admin.counter.index');
     }
 
-    public function show(Counter $customerService)
+    public function show(Counter $counter)
     {
         # code...
     }
 
-    public function edit(Counter $customerService)
+    public function edit(Counter $counter)
+    {
+        return $counter->customerService;
+    }
+
+    public function update(Counter $counter, Request $request)
     {
         # code...
     }
 
-    public function update(Counter $customerService, Request $request)
-    {
-        # code...
-    }
-
-    public function destroy(Counter $customerService)
+    public function destroy(Counter $counter)
     {
         # code...
     }

@@ -1,5 +1,5 @@
 @extends('layouts.cs')
 
 @section('content')
-    <queue></queue>
+    <queue :counter="{{ Auth::user()->counter->id }}"></queue>
 @endsection

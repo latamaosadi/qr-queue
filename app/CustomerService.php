@@ -16,4 +16,9 @@ class CustomerService extends Authenticatable
     {
         return $this->hasMany('App\Customers');
     }
+
+    public function counter()
+    {
+        return $this->hasOne('App\Counter');
+    }
 }

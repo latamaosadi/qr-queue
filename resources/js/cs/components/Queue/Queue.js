@@ -17,6 +17,9 @@ export default {
       interviewDuration: null
     };
   },
+  props: {
+    counter: Number
+  },
   created() {
     this.loadData();
     this.loadCurrentQueue();
@@ -81,7 +84,7 @@ export default {
       });
     },
     loadCurrentQueue() {
-      axios.get("/api/queue/current").then(response => {
+      axios.get(`/api/queue/current/${this.counter}`).then(response => {
         if (!response.data) {
           return;
         }
@@ -97,7 +100,7 @@ export default {
     processQueue() {
       this.loading = true;
       axios
-        .post("/api/queue/process")
+        .post(`/api/queue/process/${this.counter}`)
         .then(response => {
           this.customer = response.data;
           this.callQueue();
