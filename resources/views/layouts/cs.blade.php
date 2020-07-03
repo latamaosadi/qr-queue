@@ -9,7 +9,11 @@
 </head>
 <body>
     <div class="bg-gray-200">
-        <div id="app"></div>
+        <div class="container mx-auto min-h-screen bg-white p-6">
+            <div id="app">
+                @yield('content')
+            </div>
+        </div>
     </div>
 
     <script src="{{ mix('js/cs.js') }}" type="text/javascript"></script>

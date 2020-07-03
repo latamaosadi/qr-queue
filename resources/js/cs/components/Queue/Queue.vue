@@ -126,4 +126,4 @@
 </template>
 
 <!-- script js -->
-<script src="./Home.js"></script>
+<script src="./Queue.js"></script>
