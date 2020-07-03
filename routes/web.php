@@ -27,7 +27,7 @@ Route::group([
     'as' => 'admin.',
     'namespace' => 'Admin',
 ], function () {
-    Route::group(['middleware' => ['web', 'auth']], function () {
+    Route::group(['middleware' => ['auth:web']], function () {
         Route::get('/', 'HomeController@index')->name('index');
 
         Route::group(['prefix' => 'customer-services', 'as' => 'cs.'], function () {
@@ -49,10 +49,10 @@ Route::group([
         });
     });
 
-    Route::namespace ('Auth')->group(function () {
+    Route::group(['namespace' => 'Auth'], function () {
         Route::get('/login', 'LoginController@showLoginForm')->name('login');
         Route::post('/login', 'LoginController@login');
-        Route::post('/logout', 'LoginController@logout')->name('logout');
+        Route::get('/logout', 'LoginController@logout')->name('logout');
     });
 });
 
@@ -61,13 +61,18 @@ Route::group([
     'as' => 'cs.',
     'namespace' => 'CustomerService',
 ], function () {
-    Route::get('/', 'CustomerService\QueueController@index')->name('index');
+    Route::group(['middleware' => ['auth:cs']], function () {
+        Route::get('/', 'QueueController@index')->name('index');
+    });
 
-    Route::namespace ('Auth')->group(function () {
+    Route::group(['namespace' => 'Auth'], function () {
         Route::get('/login', 'LoginController@showLoginForm')->name('login');
         Route::post('/login', 'LoginController@login');
-        Route::post('/logout', 'LoginController@logout')->name('logout');
+        Route::get('/logout', 'LoginController@logout')->name('logout');
     });
+    Route::get('/not_supported', function () {
+        return view('cs.not_supoorted');
+    })->name('not_supported');
 });
 
 Route::get('/home', 'HomeController@index')->name('home');

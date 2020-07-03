@@ -24,7 +24,10 @@
                         <td class="border px-4 py-2">{{ $cs->username }}</td>
                         <td class="border px-4 py-2">{{ $cs->status }}</td>
                         <td class="border px-4 py-2">
-                            <a href="{{ route('admin.cs.edit', ['customerService' => $cs->id]) }}">Edit</a>
+                            <a
+                                href="{{ route('admin.cs.edit', ['customerService' => $cs->id]) }}"
+                                class="text-blue-600"
+                            >Edit</a>
                         </td>
                     </tr>
                 @endforeach
