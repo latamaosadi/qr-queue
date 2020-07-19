@@ -38,7 +38,7 @@
             v-else-if="customer"
             class="mt-6"
         >
-            <h1 class="text-center text-2xl">Antrian <span class="font-bold">#{{ customer.queue }}</span></h1>
+            <h1 class="text-center text-2xl">Antrian <span class="font-bold font-mono">{{ customer.readable_queue }}</span></h1>
             <div
                 v-if="step === 'handling'"
                 class="text-4xl text-center text-green-500 font-bold font-mono"

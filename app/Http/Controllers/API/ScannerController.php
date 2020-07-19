@@ -20,35 +20,40 @@ class ScannerController extends Controller
     {
         $storage = Storage::disk('public');
         $url = $request->input('url');
-        $client = new Client(HttpClient::create(['timeout' => 60]));
-        $crawler = $client->request('GET', $url);
 
-        // ambil gambar
-        $avatarElement = $crawler->filter('div.img')->first();
+        try {
+            $client = new Client(HttpClient::create(['timeout' => 60]));
+            $crawler = $client->request('GET', $url);
 
-        // ambil nama
-        $nameElement = $crawler->filter('h2.name')->first();
-        $nama = $nameElement->text();
+            // ambil gambar
+            $avatarElement = $crawler->filter('div.img')->first();
 
-        $nodeValues = $crawler->filter('h4')->each(function ($node) {
-            return $node->text();
-        });
+            // ambil nama
+            $nameElement = $crawler->filter('h2.name')->first();
+            $nama = $nameElement->text();
 
-        $tanggalLahir = Carbon::createFromFormat('d/m/Y', $nodeValues[1]);
-        $nik = str_replace(" ", "", $nodeValues[2]);
-        $program = $nodeValues[3];
-        $no_hp = $nodeValues[4];
-        $email = $nodeValues[5];
-        $alamat = $nodeValues[6];
+            $nodeValues = $crawler->filter('h4')->each(function ($node) {
+                return $node->text();
+            });
 
-        if (!Config::get('app.on_external_network')) {
-            $matchedAttr = null;
-            preg_match("/'([^']+)'/", $avatarElement->attr('style'), $matchedAttr);
-            $avatar = @file_get_contents("http://bpjstk.id{$matchedAttr[1]}");
-            if ($avatar !== false) {
-                $storage->put("avatar/{$nik}.jpg", $avatar);
+            $tanggalLahir = Carbon::createFromFormat('d/m/Y', $nodeValues[1]);
+            $nik = str_replace(" ", "", $nodeValues[2]);
+            $program = $nodeValues[3];
+            $no_hp = $nodeValues[4];
+            $email = $nodeValues[5];
+            $alamat = $nodeValues[6];
+
+            if (!Config::get('app.on_external_network')) {
+                $matchedAttr = null;
+                preg_match("/'([^']+)'/", $avatarElement->attr('style'), $matchedAttr);
+                $avatar = @file_get_contents("http://bpjstk.id{$matchedAttr[1]}");
+                if ($avatar !== false) {
+                    $storage->put("avatar/{$nik}.jpg", $avatar);
+                }
             }
-        }
+        } catch (\Throwable $th) {
+            return response()->json(['error' => 'Kartu tidak valid'], 403);
+        };
 
         $profile = Profile::firstOrNew(
             ['nik' => $nik],
@@ -66,8 +71,15 @@ class ScannerController extends Controller
         $customer->url = $url;
         $customer->save();
 
-        Mail::to($profile->email)->send(new QueueNoticeMail($profile->name, $customer->queue));
+        $customer->profile = $profile;
+        $customer->template = view('scanner.info', compact('customer'))->render();
 
+        try {
+            Mail::to($profile->email)->send(new QueueNoticeMail($profile->name, $customer->queue));
+        } catch (\Throwable $th) {
+            $customer->error = 'Email tidak terkirim';
+            return response()->json($customer, 200);
+        }
         return $customer;
     }
 }

@@ -2,7 +2,10 @@ module.exports = {
   purge: [],
   theme: {
     extend: {
-      spacing: { full: "100%" }
+      spacing: { full: "100%", "72": "18rem" },
+      minHeight: theme => ({
+        ...theme("spacing")
+      })
     },
     spinner: theme => ({
       default: {

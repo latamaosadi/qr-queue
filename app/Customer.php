@@ -9,11 +9,32 @@ class Customer extends Model
 {
     protected $with = ['profile'];
 
+    protected $appends = ['readable_queue'];
+
+    /**
+     * Relationship Section
+     */
     public function profile()
     {
         return $this->hasOne('App\Profile', 'id', 'profile_id');
     }
 
+    public function counter()
+    {
+        return $this->belongsTo('App\Counter');
+    }
+
+    /**
+     * Accessor
+     */
+    public function getReadableQueueAttribute()
+    {
+        return "#" . str_pad($this->queue, 4, '0', STR_PAD_LEFT);
+    }
+
+    /**
+     * Mutators
+     */
     public function scopeToday($query)
     {
         return $query->whereDate('created_at', Carbon::today());
@@ -31,7 +52,7 @@ class Customer extends Model
 
     public function scopeProcessing($query)
     {
-        return $query->today()->where('queue_status', QueueStatus::CALLED)->orWhere('queue_status', QueueStatus::HANDLED);
+        return $query->today()->whereIn('queue_status', [QueueStatus::CALLED, QueueStatus::HANDLED]);
     }
 
     public function scopeDone($query)

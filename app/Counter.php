@@ -12,4 +12,9 @@ class Counter extends Model
     {
         return $this->belongsTo('App\CustomerService');
     }
+
+    public function customers()
+    {
+        return $this->hasMany('App\Customer');
+    }
 }
