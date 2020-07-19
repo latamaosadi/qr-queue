@@ -13,8 +13,14 @@ const notyf = new Notyf({
   },
   types: [
     {
+      type: "error",
+      className: "text-white text-xl mb-12",
+      icon: false
+    },
+    {
       type: "info",
-      className: "bg-blue-100 text-blue-400 border border-blue-400",
+      className:
+        "bg-blue-100 text-blue-400 border border-blue-400 mb-12 text-xl",
       icon: false
     }
   ]
@@ -58,6 +64,7 @@ setInterval(() => {
 document.addEventListener("scan", function(sScancode, iQuantity) {
   const content = sScancode.detail.scanCode;
   barcodeInput.value = "";
+  notyf.dismissAll();
   if (loading) {
     notyf.open({
       type: "info",
@@ -67,11 +74,9 @@ document.addEventListener("scan", function(sScancode, iQuantity) {
   }
   if (scanned === content) {
     // Display an error notification
-    notyf.error({
-      message:
-        "Anda sudah mendapatkan nomor antrian, silahkan menuju tempat mengantri untuk menunggu panggilan.",
-      icon: false
-    });
+    notyf.error(
+      "Anda sudah mendapatkan nomor antrian, silahkan menuju tempat mengantri untuk menunggu panggilan."
+    );
     return;
   }
   scanned = content;
@@ -84,22 +89,23 @@ document.addEventListener("scan", function(sScancode, iQuantity) {
     })
     .then(result => {
       scannedSound.play();
+      notyf.dismissAll();
       const queue = result.data.readable_queue;
       document.getElementById("queue-container").innerHTML = queue;
       document.getElementById("scanner-info").innerHTML = result.data.template;
+      setTimeout(() => {
+        scanned = null;
+      }, 10000);
       setTimeout(() => {
         document.getElementById("scanner-info").innerHTML = "";
       }, 5000);
     })
     .catch(err => {
-      // console.log("err :>> ", err);
+      notyf.error(err.response.data.error);
+      scanned = null;
     })
     .then(() => {
       loading = false;
       document.getElementById("scanner-info").classList.remove("spinner");
-      notyf.dismissAll();
-      setTimeout(() => {
-        scanned = null;
-      }, 10000);
     });
 });

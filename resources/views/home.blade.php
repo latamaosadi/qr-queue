@@ -48,7 +48,7 @@
         <div class="px-2 w-3/5">
             <div
                 id="scanner-info"
-                class="p-6 rounded-lg bg-gray-700 text-gray-100 border border-gray-600 min-h-72 text-2xl"
+                class="p-6 rounded-lg bg-gray-700 text-gray-100 border border-gray-600 h-72 text-2xl"
             ></div>
         </div>
     </div>
