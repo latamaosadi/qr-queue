@@ -2,7 +2,11 @@
 
 @section('content')
     <div class="p-6">
-        <h1 class="text-2xl font-bold">Daftar Counter Pelayanan</h1>
+        <h1 class="text-2xl font-bold">Daftar Loket Pelayanan</h1>
+
+        <div class="mt-2">
+            <a href="{{ route('admin.counter.create') }}" class="px-4 py-2 bg-blue-500 border border-blue-700 text-white rounded hover:bg-blue-700 hover:shadow-md transition-all duration-150">Tambah Loket</a>
+        </div>
 
         <table class="border-collapse table-auto w-full mt-8">
             <thead>
