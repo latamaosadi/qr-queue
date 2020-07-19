@@ -29,7 +29,7 @@ class Customer extends Model
      */
     public function getReadableQueueAttribute()
     {
-        return "#" . str_pad($this->queue, 4, '0', STR_PAD_LEFT);
+        return "#" . str_pad($this->queue, 3, '0', STR_PAD_LEFT);
     }
 
     /**

@@ -1,10 +1,10 @@
 <p>
     Selamat Datang, <strong>{{ $customer->profile->nama }}</strong>
 </p>
-<p class="p-2 text-center text-base">
+<p class="p-2 text-center text-base mt-4">
     NO. Antrian Anda: <strong>{{ $customer->readableQueue }}</strong>
 </p>
-<div class="font-mono text-base">
+<div class="font-mono text-base mt-4">
     <div class="flex">
         <div class="w-1/5">NIK:</div>
         <div class="w-4/5">{{ $customer->profile->nik }}</div>
@@ -23,6 +23,6 @@
     </div>
 </div>
 
-<p class="mt-4 text-center">
+<p class="mt-8 text-center">
     Silahkan menuju tempat mengantri.
 </p>

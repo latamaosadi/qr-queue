@@ -2,7 +2,7 @@ module.exports = {
   purge: [],
   theme: {
     extend: {
-      spacing: { full: "100%", "72": "18rem" },
+      spacing: { full: "100%", "72": "18rem", "96": "24rem" },
       minHeight: theme => ({
         ...theme("spacing")
       })

@@ -32,8 +32,10 @@ function renderClock() {
   );
 }
 
+// Set interval for realtime clock effect
 setInterval(renderClock, 1000);
 
+// Sound "end" custom event to give loop effect
 loadingSound.addEventListener(
   "ended",
   function() {
@@ -45,22 +47,26 @@ loadingSound.addEventListener(
   false
 );
 
-// Enable scan events for the entire document
-onScan.attachTo(document);
-
+// define barcode input & focus
 const barcodeInput = document.getElementById("scanner-focus");
 barcodeInput.focus();
 
+// prevent tab press on input barcode
 barcodeInput.addEventListener("keydown", e => {
   if ((e.which || e.keyCode) == 9) {
     e.preventDefault();
   }
 });
 
+// force focus input barcode
 setInterval(() => {
   barcodeInput.focus();
 }, 50);
 
+// Enable scan events for the entire document
+onScan.attachTo(document);
+
+// Scan event listener
 document.addEventListener("scan", function(sScancode, iQuantity) {
   const content = sScancode.detail.scanCode;
   barcodeInput.value = "";
@@ -109,3 +115,22 @@ document.addEventListener("scan", function(sScancode, iQuantity) {
       document.getElementById("scanner-info").classList.remove("spinner");
     });
 });
+
+function getQueueStatus() {
+  window.axios.get("api/queue/stats").then(response => {
+    const data = response.data;
+    document.getElementById("inline-count").innerHTML = data.inline;
+    document.getElementById("current-queue").innerHTML = data.current_queue;
+    data.counters.forEach(counter => {
+      const customers = counter.customers;
+      if (customers.length > 0) {
+        document.getElementById(`monitor-counter-${counter.id}`).innerHTML =
+          customers[0].readable_queue;
+      }
+    });
+
+    setTimeout(getQueueStatus, 5000);
+  });
+}
+
+getQueueStatus();

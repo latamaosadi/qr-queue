@@ -17,10 +17,17 @@ class QueueController extends Controller
         $done = Customer::done()->get();
         $absent = Customer::absent()->get();
 
-        return [
+        $counters = Counter::with(['customers' => function ($query) {
+            $query->processing();
+        }])->where('status', 'active')->get();
+        $currentCustomer = Customer::processing()->orderBy('created_at', 'desc')->first();
+        $currentQueue = $currentCustomer ? $currentCustomer->readableQueue : '#0000';
+
+        return compact('counters') + [
             'inline' => $inline->count(),
             'done' => $done->count(),
             'absent' => $absent->count(),
+            'current_queue' => $currentQueue,
         ];
     }
 
@@ -59,6 +66,8 @@ class QueueController extends Controller
         if ($request->input('process_new', false)) {
             $nextCustomer = Customer::inline()->orderBy('queue', 'asc')->first();
             $nextCustomer->queue_status = QueueStatus::CALLED;
+            $nextCustomer->counter_id = $customer->counter_id;
+            $nextCustomer->customer_service_id = $customer->customer_service_id;
             $nextCustomer->save();
 
             return $nextCustomer;
@@ -76,6 +85,8 @@ class QueueController extends Controller
         if ($request->input('process_new', false)) {
             $nextCustomer = Customer::inline()->orderBy('queue', 'asc')->first();
             $nextCustomer->queue_status = QueueStatus::CALLED;
+            $nextCustomer->counter_id = $customer->counter_id;
+            $nextCustomer->customer_service_id = $customer->customer_service_id;
             $nextCustomer->save();
 
             return $nextCustomer;
