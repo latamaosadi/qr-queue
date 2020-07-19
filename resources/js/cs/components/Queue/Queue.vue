@@ -30,7 +30,7 @@
             <button
                 @click="processQueue()"
                 :disabled="loading"
-                :class="{'spinner spinner-sm': loading}"
+                :class="{'spinner-sm': loading}"
                 class="bg-blue-500 py-4 px-6 text-white rounded font-bold hover:bg-blue-700 hover:shadow-xl transition duration-300"
             >Proses Antrian</button>
         </div>
@@ -90,20 +90,20 @@
             <button
                 @click="confirmQueue()"
                 :disabled="loading"
-                :class="{'spinner spinner-sm': loading}"
+                :class="{'spinner-sm': loading}"
                 class="bg-green-500 py-4 px-6 text-white rounded font-bold hover:bg-green-700 hover:shadow-xl transition duration-300"
             >Konfirmasi Antrian</button>
             <button
                 @click="skipQueue()"
                 :disabled="loading"
-                :class="{'spinner spinner-sm': loading}"
+                :class="{'spinner-sm': loading}"
                 class="bg-red-500 py-4 px-6 text-white rounded font-bold hover:bg-red-700 hover:shadow-xl transition duration-300 ml-6"
             >Lewati Antrian</button>
             <button
                 v-if="stats.inline > 0"
                 @click="skipQueue(true)"
                 :disabled="loading"
-                :class="{'spinner spinner-sm': loading}"
+                :class="{'spinner-sm': loading}"
                 class="bg-red-500 py-4 px-6 text-white rounded font-bold hover:bg-red-700 hover:shadow-xl transition duration-300 ml-6"
             >Lewati Antrian & Proses Baru</button>
         </div>
@@ -111,14 +111,14 @@
             <button
                 @click="finishQueue()"
                 :disabled="loading"
-                :class="{'spinner spinner-sm': loading}"
+                :class="{'spinner-sm': loading}"
                 class="bg-blue-500 py-4 px-6 text-white rounded font-bold hover:bg-blue-700 hover:shadow-xl transition duration-300"
             >Selesai</button>
             <button
                 v-if="stats.inline > 0"
                 @click="finishQueue(true)"
                 :disabled="loading"
-                :class="{'spinner spinner-sm': loading}"
+                :class="{'spinner-sm': loading}"
                 class="bg-green-500 py-4 px-6 text-white rounded font-bold hover:bg-green-700 hover:shadow-xl transition duration-300 ml-6"
             >Selesai & Ambil Antrian Baru</button>
         </div>

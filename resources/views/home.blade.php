@@ -4,7 +4,7 @@
 
 <div class="h-screen p-6 flex flex-col">
     <div>
-        <h1 class="text-center text-4xl text-center text-gray-800 font-bold">Antrian Pintar BPJAMSOSTEK</h1>
+        <h1 class="text-center text-4xl text-gray-800 font-bold">Antrian Pintar BPJAMSOSTEK</h1>
         <p
             id="clock"
             class="text-center"
