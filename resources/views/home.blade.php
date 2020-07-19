@@ -40,15 +40,15 @@
         <div class="px-2 w-2/5 flex">
             <div class="relative p-6 rounded-lg bg-gray-100 text-gray-600 border border-gray-600 flex-1 text-center">
                 <div class="">
-                    <h3 class="text-2xl">Antrian Terakhir</h3>
+                    <h3 class="text-2xl">No. Antrian Terakhir</h3>
                     <p class="text-4xl font-bold font-mono" id="queue-container">{{ $queue }}</p>
                 </div>
                 <div class="mt-2">
-                    <h3 class="text-2xl">Jumlah Antrian</h3>
+                    <h3 class="text-2xl">Jumlah Antrian Menunggu</h3>
                     <p class="text-4xl font-bold font-mono" id="inline-count">{{ $inlineCount }}</p>
                 </div>
                 <div class="mt-2">
-                    <h3 class="text-2xl">Antrian Sedang di Proses</h3>
+                    <h3 class="text-2xl">No. Antrian Sedang diproses</h3>
                     <p class="text-4xl font-bold font-mono" id="current-queue">{{ $currentQueue }}</p>
                 </div>
             </div>
