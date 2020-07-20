@@ -14,7 +14,8 @@ export default {
       loading: true,
       interviewStartAt: null,
       interviewInterval: null,
-      interviewDuration: null
+      interviewDuration: null,
+      pollTimeout: null
     };
   },
   props: {
@@ -81,6 +82,12 @@ export default {
       axios.get("/api/queue/stats").then(response => {
         this.stats = response.data;
         this.loading = false;
+        if (this.pollTimeout) {
+          clearTimeout(this.pollTimeout);
+        }
+        this.pollTimeout = setTimeout(() => {
+          this.loadData();
+        }, 5000);
       });
     },
     loadCurrentQueue() {
@@ -164,5 +171,8 @@ export default {
     refreshQueue() {
       this.loadData();
     }
+  },
+  beforeDestroy() {
+    clearTimeout(this.pollTimeout);
   }
 };
