@@ -68,6 +68,21 @@ DB_PASSWORD=
 ...
 ```
 
+Lakukan pengaturan pada profile Mail Server di file `.env`
+
+```conf
+...
+MAIL_MAILER=smtp
+MAIL_HOST=ISI_DENGAN_MAIL_HOST
+MAIL_PORT=2525
+MAIL_USERNAME=ISI_DENGAN_USERNAME_MAIL
+MAIL_PASSWORD=ISI_DENGAN_PASSWORD_MAIL
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS=antrian@bpjamsostek.com
+MAIL_FROM_NAME="${APP_NAME}"
+...
+```
+
 Lakukan migrasi schema database dan jalankan seeder untuk pembentukan data inisial. Perintah di bawah akan melakukan migrasi schema tabel dan mengisi data admin dengan username `admin` dan password `admin`.
 
 ```sh
