@@ -4,6 +4,8 @@ const scannedSound = new Audio("sounds/scanned.mp3");
 const loadingSound = new Audio("sounds/loading.mp3");
 let loading = false;
 let scanned = null;
+const scannerPlaceholder = document.getElementById("scanner-placeholder")
+  .innerHTML;
 
 const notyf = new Notyf({
   duration: 3000,
@@ -31,6 +33,8 @@ function renderClock() {
     "D MMMM YYYY, HH:mm:ss"
   );
 }
+
+document.getElementById("scanner-info").innerHTML = scannerPlaceholder;
 
 // Set interval for realtime clock effect
 setInterval(renderClock, 1000);
@@ -101,9 +105,9 @@ document.addEventListener("scan", function(sScancode, iQuantity) {
       document.getElementById("scanner-info").innerHTML = result.data.template;
       setTimeout(() => {
         scanned = null;
-      }, 10000);
+      }, 30000);
       setTimeout(() => {
-        document.getElementById("scanner-info").innerHTML = "";
+        document.getElementById("scanner-info").innerHTML = scannerPlaceholder;
       }, 5000);
     })
     .catch(err => {
