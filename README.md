@@ -1,85 +1,108 @@
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
+<p align="center"><img src="http://cda.ipb.ac.id/public/event/jobfair/employer_logo/2018/mei/logo-perusahaan/46-51Logo-BPJSTK.png" width="400"></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+<h1 align="center">SISTEM ANTRIAN TERINTEGRASI BPJSTKU</h1>
 
-## About Laravel
+## Tentang Aplikasi
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Sistem Antrian Terintegrasi bertujuan untuk mempermudah dan mempersingkat proses antrian yang selama ini ada dengan memanfaatkan kartu kepesertaan yang dimiliki peserta untuk mendapatkan nomor antrian dan segera mendapatkan data identitas peserta berdasarkan kartu peserta sehingga mempermudah Customer Service untuk memverifikasi data peserta.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Alur Antrian dengan Aplikasi
+- Peserta datang dengan wajib membawa kartu kepesertaan
+- Peserta mengarahkan kartu dengan sisi yang ada QRCode pada tempat yang diinstruksi (Scanner)
+- Sistem memproses QRCode untuk mendapatkan identitas peserta dan memberikan nomor antrian langsung ke email peserta
+- Peserta mendapatkan nomor antrian dan segera menuju tempat mengantri yang sudah disediakan
+- Customer Service memanggil nomor antrian peserta
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Syarat Instalasi Aplikasi
 
-## Learning Laravel
+Sebelum dapat melakukan instalasi aplikasi, ini beberapa hal yang harus dilengkapi terlebih dahulu.
+### Hardware:
+- Sebuah mesin server sebagai host dari aplikasi dan database
+- Sebuah mesin client yang ditempatkan sebagai display untuk peserta mendapatkan nomor antrian
+- Scanner Barcode yang dapat membaca QRCode yang akan dipasang pada mesin client
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Software Server
+- OS direkomendasikan UNIX based
+- MySQL Server | Versi Minimal 5.7
+- PHP | Versi Minimal 7.2.5
+- Web Server (Apache/Nginx) *Optional jika sudah menggunakan PHP Server*
+- Composer, sebagai package manager untuk library PHP yang digunakan aplikasi server. [Download](https://getcomposer.org/download/)
+- NodeJS & NPM, sebagai package manager & asset builder untuk aplikasi. [Download](https://nodejs.org/en/download/)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Langkah Instalasi
+Pertama clone repository ini pada root direktori projects.
+```sh
+$ cd PathToYourBaseProject
+$ git clone git@github.com:latamaosadi/qr-queue.git
+$ cd qr-queue
+```
+Lakukan instalasi library yang dibutuhkan aplikasi
 
-## Laravel Sponsors
+```sh
+$ composer install
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Lakukan instalasi library yang dibutuhkan untuk membentuk aset dari aplikasi (css & js)
 
-### Premium Partners
+```sh
+$ npm install
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
+Aplikasi menggunakan file `.env` sebagai konfigurasi utama dari aplikasi (konfigurasi database profile, email, dll). Duplikasi file `.env.example` ke `.env`
 
-### Community Sponsors
+```sh
+$ cp .env.example .env
+$ php artisan key:generate
+```
 
-<a href="https://op.gg"><img src="http://opgg-static.akamaized.net/icon/t.rectangle.png" width="150"></a>
+Lakukan pengaturan pada profile MySQL Server di file `.env`
 
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
-- [Hyper Host](https://hyper.host)
-- [Appoly](https://www.appoly.co.uk)
-- [云软科技](http://www.yunruan.ltd/)
+```
+...
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=nama_db
+DB_USERNAME=root
+DB_PASSWORD=
+...
+```
 
-## Contributing
+Lakukan migrasi schema database dan jalankan seeder untuk pembentukan data inisial. Perintah di bawah akan melakukan migrasi schema tabel dan mengisi data admin dengan username `admin` dan password `admin`.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```sh
+$ php artisan migrate --seed
+```
 
-## Code of Conduct
+Buat symbolic link direktori storage agar dapat diakses secara public
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```sh
+$ php artisan storage:link
+```
 
-## Security Vulnerabilities
+Build asset (css & js)
+```sh
+$ npm run prod
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Server bisa dijalankan dengan perintah bawaan laravel. Tambahkan option host agar aplikasi bisa diakses di jaringan.
 
-## License
+```sh
+$ php artisan serve --host=0.0.0.0
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Output dari perintah di atas jika berhasil dijalankan
+
+```sh
+Laravel development server started: http://0.0.0.0:8000
+[Mon Jul 20 10:23:22 2020] PHP 7.4.6 Development Server (http://0.0.0.0:8000) started
+```
+
+Server bisa juga di jalankan dengan melakukan konfigurasi pada webserver yang digunakan (Apache/Nginx). Untuk langkah konfigurasi bisa menyesuaikan webserver.
+
+## Routing Aplikasi
+Ada 3 route utama dalam aplikasi
+- **Home Route** `http://localhost:8000/`, halaman utama yang ditujukan untuk peserta untuk melakukan scan dan mendapatkan nomor antrian.
+- **Admin Route** `http://localhost:8000/admin`, halaman yang ditujukan untuk admin agar dapat melakukan penambahan loket dan customer service.
+- **CS Route** `http://localhost:8000/cs`
+halaman yang ditujukan untuk cs untuk melakukan pelayanan terhadap peserta dengan memproses antrian.
